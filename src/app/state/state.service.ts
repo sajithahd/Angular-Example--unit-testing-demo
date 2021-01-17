@@ -26,7 +26,7 @@ export class StateService {
     return this.post$.asObservable();
   }
 
-  setAddedPost(post: Post) {
+  setAddedPost(post: Post): void {
     this.post$.next(post);
   }
 
@@ -34,7 +34,7 @@ export class StateService {
     return this.updatedPost$.asObservable();
   }
 
-  setUpdatedPost(post: Post) {
+  setUpdatedPost(post: Post): void {
     this.updatedPost$.next(post);
   }
 }

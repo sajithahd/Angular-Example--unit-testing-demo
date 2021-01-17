@@ -1,0 +1,132 @@
+<div>Add new Post</div>
+<div class="post-capture-wrapper">
+  <!-- Simple Form -->
+  <!-- <div class="post-capture" *ngIf="post">
+    <label>Post ID: </label> {{ post.id }}
+    <input class="post-detail" [(ngModel)]="post.userId" />
+    <input class="post-detail" [(ngModel)]="post.title" />
+    <input class="post-detail" [(ngModel)]="post.body" />
+  </div> -->
+
+  <!-- Dynamic Form with validations -->
+  <!-- <form #postForm="ngForm">
+    <div class="post-capture" *ngIf="post">
+      <label>Post ID: </label> {{ post.id }}
+      <div>
+        <label for="userId">User ID </label>
+        <input
+          id="userId"
+          name="userId"
+          #userId="ngModel"
+          class="post-detail"
+          [(ngModel)]="post.userId"
+          required
+          minlength="4"
+        />
+        <div *ngIf="userId.invalid && (userId.touched || userId.dirty)">
+          <span *ngIf="userId.errors.required">
+            Reured field
+          </span>
+          <span *ngIf="userId.errors.minlength">
+            Min length
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <label for="title">Title</label>
+        <input
+          class="post-detail"
+          [(ngModel)]="post.title"
+          id="title"
+          name="title"
+          required
+          #title="ngModel"
+        />
+        <div *ngIf="title.invalid && (title.dirty || title.touched)">
+          <span *ngIf="title.errors.required">Required filed</span>
+        </div>
+      </div>
+      <div>
+        <label for="body">Body</label>
+        <input
+          class="post-detail"
+          [(ngModel)]="post.body"
+          name="body"
+          id="body"
+          #body="ngModel"
+          required
+        />
+
+        <div
+          *ngIf="postForm.invalid && (postForm.touched || postForm.dirty)"
+        >
+          <span *ngIf="body.errors.required"> Required Filed</span>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="postForm.invalid"
+      (click)="addPost(post)"
+    >
+      {{ addNew ? "Add" : "Update" }}
+    </button>
+  </form> -->
+
+  <!-- Reactive Form with validations -->
+  <form [formGroup]="postForm">
+    <div>
+      <label for="userId">User ID</label>
+      <input
+        class="post-detail"
+        id="userId"
+        name="userId"
+        formControlName="userId"
+      />
+      <div *ngIf="userId.invalid && (userId.touched || userId.dirty)">
+        Required filed
+      </div>
+    </div>
+    <div>
+      <label for="title">Title</label>
+      <input
+        class="post-detail"
+        formControlName="title"
+        id="title"
+        name="title"
+      />
+      <div *ngIf="title.invalid && (title.touched || title.dirty)">
+        <div *ngIf="title.errors.required">Required Filed</div>
+      </div>
+    </div>
+    <div>
+      <label for="body">Body</label>
+      <input
+        formControlName="body"
+        class="post-detail"
+        id="Body"
+        name="body"
+      />
+      <div *ngIf="body.invalid && (title.touched || title.dirty)">
+        <div *ngIf="body.errors.required">Required Filed</div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="postForm.invalid"
+      (click)="addPost(postForm.value)"
+    >
+      Add
+    </button>
+  </form>
+</div>
+<div class="post">
+  <div class="title">
+    {{ addedPost?.id }}. {{ addedPost?.title }} by user
+    {{ addedPost?.userId }}
+  </div>
+  {{ addedPost?.body }}
+</div>

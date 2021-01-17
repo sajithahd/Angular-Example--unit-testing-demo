@@ -1,35 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FacadeService } from './facade.service';
-import { Post } from './models/post';
+import { FacadeService } from '../../facade.service';
+import { Post } from '../../models/post';
 
 @Component({
-  selector: 'posts',
-  template: `
-    <div class="post" *ngFor="let post of posts$ | async">
-      <div class="title">
-        {{ post.id }}. {{ post.title }} by user {{ post.userId }}
-      </div>
-      {{ post.body }}
-      <div>
-        <button (click)="updatePost(post)">Update</button>
-      </div>
-    </div>
-  `,
-  styles: [
-    `
-      .title {
-        font-weight: bold;
-      }
-
-      .post {
-        padding: 5px;
-        background: #ddd;
-        margin: 3px;
-      }
-    `
-  ]
+  selector: 'app-posts',
+  templateUrl: './posts.component.html',
+  styleUrls: ['./posts.component.scss']
 })
+
 export class PostsComponent implements OnInit {
   @Input() name!: string;
 
@@ -56,3 +35,4 @@ export class PostsComponent implements OnInit {
     this.facadeService.updatePost(post);
   }
 }
+
