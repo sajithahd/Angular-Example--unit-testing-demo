@@ -25,7 +25,7 @@ export class FacadeService {
         this.setPosts(posts);
       },
       error => {
-        console.log('Error occured while loading posts');
+        console.log('Error occurred while loading posts');
       }
     );
   }
@@ -40,8 +40,8 @@ export class FacadeService {
 
   addPost(post: Post): void {
     this.apiService.addPost(post).subscribe(
-      (post: Post) => {
-        this.setAddedPost(post);
+      (addedPost: Post) => {
+        this.setAddedPost(addedPost);
       },
       error => {
         console.log('Error occured while adding new post');
@@ -53,14 +53,14 @@ export class FacadeService {
     return this.stateService.getUpdatedPost$();
   }
 
-  setUpdatedPost(post: Post) {
+  setUpdatedPost(post: Post): void {
     this.stateService.setUpdatedPost(post);
   }
 
   updatePost(post: Post): void {
     this.apiService.updatePost(post).subscribe(
-      (post: Post) => {
-        this.setUpdatedPost(post);
+      (updatedPost: Post) => {
+        this.setUpdatedPost(updatedPost);
 
         // this.get
       },
