@@ -101,7 +101,7 @@ describe('API service', () => {
         });
 
         const updatePostRequest = httpTestingController.expectOne('https://jsonplaceholder.typicode.com/posts/1');
-        expect(updatePostRequest.request.method).toEqual('POST');
+        expect(updatePostRequest.request.method).toEqual('PUT');
         updatePostRequest.flush(post);
       }
     );
