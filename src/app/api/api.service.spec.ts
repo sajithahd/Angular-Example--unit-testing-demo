@@ -12,7 +12,7 @@ describe('API service', () => {
 
   beforeEach(() => {
 
-    const loggerServiceSpyValue = jasmine.createSpyObj('loggerServiceSpy', ['log']);
+    const loggerServiceSpyValue = jasmine.createSpyObj('LoggerService', ['log']);
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
