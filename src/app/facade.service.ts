@@ -34,7 +34,7 @@ export class FacadeService {
     return this.stateService.getAddedPost$();
   }
 
-  setAddedPost(post: Post) {
+  setAddedPost(post: Post): void {
     this.stateService.setAddedPost(post);
   }
 
