@@ -32,7 +32,7 @@ describe('PostsComponent', () => {
   ];
 
   beforeEach(async () => {
-    const facadeServiceSpyValue = jasmine.createSpyObj('FacadeService', ['getPosts$', 'loadPosts']);
+    const facadeServiceSpyValue = jasmine.createSpyObj('FacadeService', ['getPosts$', 'loadPosts', 'updatePost']);
 
     await TestBed.configureTestingModule({
       declarations: [PostsComponent],
@@ -66,4 +66,5 @@ describe('PostsComponent', () => {
     expect(postContainer.textContent).toContain('sunt aut facere');
 
   });
+
 });
