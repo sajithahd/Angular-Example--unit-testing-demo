@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { Observable, ReplaySubject } from "rxjs";
-import { Post } from "../models/post";
+import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
+import { Post } from '../models/post';
 
 @Injectable()
 export class StateService {

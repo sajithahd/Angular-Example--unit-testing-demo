@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Observable, Observer } from "rxjs";
-import { APIService } from "./api/api.service";
-import { Post } from "./models/post";
-import { StateService } from "./state/state.service";
+import { Injectable } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
+import { APIService } from './api/api.service';
+import { Post } from './models/post';
+import { StateService } from './state/state.service';
 
 @Injectable()
 export class FacadeService {
@@ -25,7 +25,7 @@ export class FacadeService {
         this.setPosts(posts);
       },
       error => {
-        console.log("Error occured while loading posts");
+        console.log('Error occured while loading posts');
       }
     );
   }
@@ -44,7 +44,7 @@ export class FacadeService {
         this.setAddedPost(post);
       },
       error => {
-        console.log("Error occured while adding new post");
+        console.log('Error occured while adding new post');
       }
     );
   }
@@ -65,7 +65,7 @@ export class FacadeService {
         // this.get
       },
       error => {
-        console.log("Error occured while adding new post");
+        console.log('Error occured while adding new post');
       }
     );
   }
