@@ -88,7 +88,7 @@ describe('API service', () => {
   });
 
   describe('#update post', () => {
-    const post: Post = {
+    const updatingPost: Post = {
       userId: 1,
       id: 1,
       title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
@@ -96,13 +96,13 @@ describe('API service', () => {
     };
 
     it('should update post', () => {
-        apiService.updatePost(post).subscribe(updatedPost => {
-          expect(updatedPost).toEqual(post);
+        apiService.updatePost(updatingPost).subscribe(updatedPost => {
+          expect(updatedPost).toEqual(updatingPost);
         });
 
-        const updatePostRequest = httpTestingController.expectOne('https://jsonplaceholder.typicode.com/posts/1');
+        const updatePostRequest = httpTestingController.expectOne('https://jsonplaceholder.typicode.com/posts/' + updatingPost.id);
         expect(updatePostRequest.request.method).toEqual('PUT');
-        updatePostRequest.flush(post);
+        updatePostRequest.flush(updatingPost);
       }
     );
   });
