@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Post } from '../models/post';
+import { LoggerService } from '../services/logger.service';
 
 @Injectable()
 export class APIService {
@@ -12,24 +14,34 @@ export class APIService {
     })
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private loggerService: LoggerService
+  ) {}
 
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(
       'https://jsonplaceholder.typicode.com/posts'
-    ) as Observable<Post[]>;
+    ).pipe(tap(
+      posts => this.loggerService.log(posts)
+    )) as Observable<Post[]>;
   }
 
   addPost(post: Post): Observable<Post> {
-    return this.http.post(
+    return this.http.post<Post>(
       'https://jsonplaceholder.typicode.com/posts',
       post,
       this.httpOptions
-    ) as Observable<Post>;
+    ).pipe(tap(
+      postAdded => this.loggerService.log(postAdded)
+    )) as Observable<Post>;
   }
 
   updatePost(post: Post): Observable<Post> {
     const url = 'https://jsonplaceholder.typicode.com/posts/' + post.id;
-    return this.http.put(url, post, this.httpOptions) as Observable<Post>;
+    return this.http.put<Post>(url, post, this.httpOptions)
+               .pipe(
+                 tap(postUpdated => this.loggerService.log(postUpdated))
+               ) as Observable<Post>;
   }
 }
