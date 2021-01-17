@@ -1,20 +1,28 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Post } from '../models/post';
+import { LoggerService } from '../services/logger.service';
 import { APIService } from './api.service';
 
 describe('API service', () => {
 
   let httpTestingController: HttpTestingController;
   let apiService: APIService;
+  let loggerServiceSpy: jasmine.SpyObj<LoggerService>;
 
   beforeEach(() => {
+
+    const loggerServiceSpyValue = jasmine.createSpyObj('loggerServiceSpy', ['log']);
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [APIService]
+      providers: [
+        APIService,
+        {provide: LoggerService, useValue: loggerServiceSpyValue}
+      ]
     });
 
     httpTestingController = TestBed.inject(HttpTestingController);
+    loggerServiceSpy = TestBed.inject(LoggerService) as jasmine.SpyObj<LoggerService>;
     apiService = TestBed.inject(APIService);
   });
 
