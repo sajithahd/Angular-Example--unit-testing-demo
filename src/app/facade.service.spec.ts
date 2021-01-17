@@ -91,4 +91,32 @@ describe('FacadeService', () => {
 
   }));
 
+  it('getAddedPost$ should return stubbed value in the state', () => {
+    const addingPost: Post = {
+      userId: 1,
+      id: null,
+      title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+      body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
+    };
+
+    stateServiceSpy.getAddedPost$.and.returnValue(new BehaviorSubject(addingPost));
+    facadeService.getAddedPost$().subscribe(addedPost => {
+      expect(addedPost).toEqual(addingPost);
+    });
+  });
+
+  it('getUpdatedPost$ should return stubbed value in the state', () => {
+    const updatingPost: Post = {
+      userId: 1,
+      id: null,
+      title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+      body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
+    };
+
+    stateServiceSpy.getUpdatedPost$.and.returnValue(new BehaviorSubject(updatingPost));
+    facadeService.getUpdatedPost$().subscribe(updatedPost => {
+      expect(updatedPost).toEqual(updatingPost);
+    });
+  });
+
 });
