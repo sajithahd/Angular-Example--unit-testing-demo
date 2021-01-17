@@ -7,6 +7,7 @@ describe('API service', () => {
 
   let httpTestingController: HttpTestingController;
   let apiService: APIService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -47,12 +48,63 @@ describe('API service', () => {
       apiService.getPosts().subscribe(p => {
         expect(p).toEqual(posts, 'should return expected posts');
       });
-      const testRequest = httpTestingController.match('https://jsonplaceholder.typicode.com/posts');
-      expect(testRequest[0].request.method).toEqual('GET');
-      expect(testRequest.length).toEqual(1);
-      testRequest[0].flush(posts);
-    });
 
+      // apiService.getPosts().subscribe(p => {
+      //   expect(p).toEqual(posts, 'should return expected posts');
+      // });
+
+      const req = httpTestingController.expectOne('https://jsonplaceholder.typicode.com/posts');
+      expect(req.request.method).toEqual('GET');
+      req.flush(posts);
+
+      // const testRequest = httpTestingController2.match('https://jsonplaceholder.typicode.com/posts');
+      // expect(testRequest[0].request.method).toEqual('GET', 'request not found');
+      // expect(testRequest.length).toEqual(1);
+      // testRequest[0].flush(posts);
+
+    });
+  });
+
+  describe('#addPost', () => {
+    const post: Post = {
+      userId: 1,
+      id: null,
+      title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+      body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
+    };
+
+    it('should add new post', () => {
+      apiService.addPost(post).subscribe(addedPost => {
+        expect(addedPost).toEqual(post);
+        expect(addedPost.userId).toEqual(1);
+      });
+
+      const addPostRequest = httpTestingController.expectOne('https://jsonplaceholder.typicode.com/posts');
+      expect(addPostRequest.request.method).toEqual('POST');
+
+      addPostRequest.flush(post);
+
+    });
+  });
+
+  describe('#update post', () => {
+    const post: Post = {
+      userId: 1,
+      id: 1,
+      title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+      body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
+    };
+
+    it('should update post', () => {
+        apiService.updatePost(post).subscribe(updatedPost => {
+          expect(updatedPost).toEqual(post);
+        });
+
+        const updatePostRequest = httpTestingController.expectOne('https://jsonplaceholder.typicode.com/posts/1');
+        expect(updatePostRequest.request.method).toEqual('POST');
+        updatePostRequest.flush(post);
+      }
+    );
   });
 
 });
