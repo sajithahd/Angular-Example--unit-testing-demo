@@ -46,6 +46,18 @@ export class AddPostComponent implements OnInit {
     });
   }
 
+  get userId(): AbstractControl | null {
+    return this.postForm.get('userId');
+  }
+
+  get title(): AbstractControl | null {
+    return this.postForm.get('title');
+  }
+
+  get body(): AbstractControl | null {
+    return this.postForm.get('body');
+  }
+
   ngOnInit(): void {
     this.facadeService.getAddedPost$().subscribe(
       addedPost => {
@@ -88,18 +100,6 @@ export class AddPostComponent implements OnInit {
     } else {
       this.facadeService.addPost(post);
     }
-  }
-
-  get userId(): AbstractControl | null {
-    return this.postForm.get('userId');
-  }
-
-  get title(): AbstractControl | null {
-    return this.postForm.get('title');
-  }
-
-  get body(): AbstractControl | null {
-    return this.postForm.get('body');
   }
 }
 

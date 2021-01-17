@@ -81,9 +81,9 @@
       <label for="userId">User ID</label>
       <input
         class="post-detail"
+        formControlName="userId"
         id="userId"
         name="userId"
-        formControlName="userId"
       />
       <div *ngIf="userId.invalid && (userId.touched || userId.dirty)">
         Required filed
@@ -104,8 +104,8 @@
     <div>
       <label for="body">Body</label>
       <input
-        formControlName="body"
         class="post-detail"
+        formControlName="body"
         id="Body"
         name="body"
       />
@@ -115,9 +115,9 @@
     </div>
 
     <button
-      type="submit"
-      [disabled]="postForm.invalid"
       (click)="addPost(postForm.value)"
+      [disabled]="postForm.invalid"
+      type="submit"
     >
       Add
     </button>

@@ -1,4 +1,4 @@
-<div class="post" *ngFor="let post of posts$ | async">
+<div *ngFor="let post of posts$ | async" class="post">
   <div class="title">
     {{ post.id }}. {{ post.title }} by user {{ post.userId }}
   </div>
