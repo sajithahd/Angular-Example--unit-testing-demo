@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { FacadeService } from '../../facade.service';
 import { Post } from '../../models/post';
@@ -11,6 +11,7 @@ describe('AddPostComponent', () => {
   let fixture: ComponentFixture<AddPostComponent>;
 
   let facadeServiceSpy: jasmine.SpyObj<FacadeService>;
+  let formBuilderSpy: jasmine.SpyObj<FormBuilder>;
 
   const expectedUpdatedPosts: Post = {
     userId: 1,
@@ -34,13 +35,21 @@ describe('AddPostComponent', () => {
     }).compileComponents();
 
     facadeServiceSpy = TestBed.inject(FacadeService) as jasmine.SpyObj<FacadeService>;
+    formBuilderSpy = TestBed.inject(FormBuilder) as jasmine.SpyObj<FormBuilder>;
     facadeServiceSpy.getUpdatedPost$.and.returnValue(new BehaviorSubject(expectedUpdatedPosts));
     facadeServiceSpy.getAddedPost$.and.returnValue(new BehaviorSubject(expectedUpdatedPosts));
+
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AddPostComponent);
     component = fixture.componentInstance;
+    component.postForm = formBuilderSpy.group(
+      {
+        userId: [expectedUpdatedPosts.userId, Validators.required],
+        title: [expectedUpdatedPosts.title, Validators.required],
+        body: [expectedUpdatedPosts.body, Validators.required]
+      });
     fixture.detectChanges();
   });
 
