@@ -1,97 +1,104 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { defer } from 'rxjs';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { BehaviorSubject, defer } from 'rxjs';
 import { FacadeService } from '../../facade.service';
 import { Post } from '../../models/post';
 import { AddPostComponent } from './add-post.component';
 
-/* xdescribe('AddPostComponent', () => {
- let component: AddPostComponent;
- let fixture: ComponentFixture<AddPostComponent>;
+describe('AddPostComponent', () => {
+  let component: AddPostComponent;
+  let fixture: ComponentFixture<AddPostComponent>;
 
- let facadeServiceSpy: jasmine.SpyObj<FacadeService>;
- let formBuilderSpy: jasmine.SpyObj<FormBuilder>;
- let postForm: FormGroup;
+  let facadeServiceSpy: jasmine.SpyObj<FacadeService>;
+  let formBuilderSpy: jasmine.SpyObj<FormBuilder>;
+  let postForm: FormGroup;
 
- const expectedUpdatedPosts: Post = {
- userId: 1,
- id: 1,
- title: 'sajitha',
- body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
- };
+  const expectedUpdatedPosts: Post = {
+    userId: 1,
+    id: 1,
+    title: 'sajitha',
+    body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
+  };
 
- beforeEach(async () => {
- const facadeServiceSpyValue = jasmine.createSpyObj('FacadeService', [
- 'getUpdatedPost$',
- 'getAddedPost$'
- ]);
- const formBuilderSpyValue = jasmine.createSpyObj('FormBuilder', ['group']);
- await TestBed.configureTestingModule({
- declarations: [AddPostComponent],
- providers: [
- {provide: FacadeService, useValue: facadeServiceSpyValue},
- {provide: FormBuilder, useValue: formBuilderSpyValue}
- ]
- }).compileComponents();
+  beforeEach(async () => {
+    const facadeServiceSpyValue = jasmine.createSpyObj('FacadeService', [
+      'getUpdatedPost$',
+      'getAddedPost$'
+    ]);
+    const formBuilderSpyValue = jasmine.createSpyObj('FormBuilder', ['group']);
+    await TestBed.configureTestingModule({
+      declarations: [AddPostComponent],
+      providers: [
+        FormBuilder,
+        {provide: FacadeService, useValue: facadeServiceSpyValue}
+      ]
+    }).compileComponents();
 
- facadeServiceSpy = TestBed.inject(FacadeService) as jasmine.SpyObj<FacadeService>;
- formBuilderSpy = TestBed.inject(FormBuilder) as jasmine.SpyObj<FormBuilder>;
- facadeServiceSpy.getUpdatedPost$.and.returnValue(new BehaviorSubject(expectedUpdatedPosts));
- facadeServiceSpy.getAddedPost$.and.returnValue(new BehaviorSubject(expectedUpdatedPosts));
+    facadeServiceSpy = TestBed.inject(FacadeService) as jasmine.SpyObj<FacadeService>;
+    formBuilderSpy = TestBed.inject(FormBuilder) as jasmine.SpyObj<FormBuilder>;
+    facadeServiceSpy.getUpdatedPost$.and.returnValue(new BehaviorSubject(expectedUpdatedPosts));
+    facadeServiceSpy.getAddedPost$.and.returnValue(new BehaviorSubject(expectedUpdatedPosts));
 
- // postForm = formBuilderSpy.group(
- //   {
- //     userId: [expectedUpdatedPosts.userId, Validators.required],
- //     title: [expectedUpdatedPosts.title, Validators.required],
- //     body: [expectedUpdatedPosts.body, Validators.required]
- //   });
- //
- // spyOnProperty(postForm, 'userId').and.returnValue(
- //   'dummy stubbed name'
- // );
+    // postForm = formBuilderSpy.group(
+    //   {
+    //     userId: [expectedUpdatedPosts.userId, Validators.required],
+    //     title: [expectedUpdatedPosts.title, Validators.required],
+    //     body: [expectedUpdatedPosts.body, Validators.required]
+    //   });
+    //
+    // spyOnProperty(postForm, 'userId').and.returnValue(
+    //   'dummy stubbed name'
+    // );
 
- });
+  });
 
- beforeEach(waitForAsync(() => {
- fixture = TestBed.createComponent(AddPostComponent);
- component = fixture.componentInstance;
+  beforeEach(waitForAsync(() => {
+    fixture = TestBed.createComponent(AddPostComponent);
+    component = fixture.componentInstance;
 
- fixture.detectChanges();
- }));
+    fixture.detectChanges();
+  }));
 
- it('should create', waitForAsync(() => {
- fixture.whenStable().then(() => {
- component.postForm = formBuilderSpy.group(
- {
- userId: [expectedUpdatedPosts.userId, Validators.required],
- title: [expectedUpdatedPosts.title, Validators.required],
- body: [expectedUpdatedPosts.body, Validators.required]
- });
+  it('should create', waitForAsync(() => {
+    fixture.whenStable().then(() => {
+      component.postForm = formBuilderSpy.group(
+        {
+          userId: [expectedUpdatedPosts.userId, Validators.required],
+          title: [expectedUpdatedPosts.title, Validators.required],
+          body: [expectedUpdatedPosts.body, Validators.required]
+        });
 
- fixture.detectChanges();
- expect(component).toBeTruthy();
- });
- }));
+      fixture.detectChanges();
+      expect(component).toBeTruthy();
+    });
+  }));
 
- xit('should display updated posts', () => {
+  it('should have called `getAddedPost$`', () => {
+    expect(facadeServiceSpy.getAddedPost$.calls.count()).toBe(1, 'getAddedPost$ called once');
+  });
 
- facadeServiceSpy.updatePost(expectedUpdatedPosts);
+  it('should have called `getUpdatedPost$`', () => {
+    expect(facadeServiceSpy.getUpdatedPost$.calls.count()).toBe(1, 'getAddedPost$ called once');
+  });
 
- fixture.whenStable().then(() => {
- fixture.detectChanges();
- const updatedPostContainer = fixture.nativeElement.querySelector('.title');
- expect(updatedPostContainer.textContent).toContain('sajitha');
- });
+  xit('should display updated posts', () => {
 
- });
- }); */
+    facadeServiceSpy.updatePost(expectedUpdatedPosts);
+
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      const updatedPostContainer = fixture.nativeElement.querySelector('.title');
+      expect(updatedPostContainer.textContent).toContain('sajitha');
+    });
+
+  });
+});
 
 describe('AddPostComponent2', () => {
 
   let component: AddPostComponent;
   let fixture: ComponentFixture<AddPostComponent>;
 
-  let formBuilderSpy: FormBuilderSpy;
   let facadeServiceSpy: FacadeServiceSpy;
 
   const expectedUpdatedPost: Post = {
@@ -200,9 +207,9 @@ describe('AddPostComponent2', () => {
     expect(facadeServiceSpy.getUpdatedPost$.calls.count()).toBe(1, 'getAddedPost$ called once');
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });
 
 
