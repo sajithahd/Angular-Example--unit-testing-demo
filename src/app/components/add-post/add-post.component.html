@@ -109,7 +109,7 @@
         id="Body"
         name="body"
       />
-      <div *ngIf="body.invalid && (title.touched || title.dirty)">
+      <div *ngIf="body.invalid && (body.touched || body.dirty)">
         <div *ngIf="body.errors.required">Required Filed</div>
       </div>
     </div>

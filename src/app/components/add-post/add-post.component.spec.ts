@@ -1,97 +1,98 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, defer } from 'rxjs';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { defer } from 'rxjs';
 import { FacadeService } from '../../facade.service';
 import { Post } from '../../models/post';
-import { PostsComponent } from '../posts/posts.component';
-
 import { AddPostComponent } from './add-post.component';
 
-xdescribe('AddPostComponent', () => {
-  let component: AddPostComponent;
-  let fixture: ComponentFixture<AddPostComponent>;
+/* xdescribe('AddPostComponent', () => {
+ let component: AddPostComponent;
+ let fixture: ComponentFixture<AddPostComponent>;
 
-  let facadeServiceSpy: jasmine.SpyObj<FacadeService>;
-  let formBuilderSpy: jasmine.SpyObj<FormBuilder>;
-  let postForm: FormGroup;
+ let facadeServiceSpy: jasmine.SpyObj<FacadeService>;
+ let formBuilderSpy: jasmine.SpyObj<FormBuilder>;
+ let postForm: FormGroup;
 
-  const expectedUpdatedPosts: Post = {
-    userId: 1,
-    id: 1,
-    title: 'sajitha',
-    body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
-  };
+ const expectedUpdatedPosts: Post = {
+ userId: 1,
+ id: 1,
+ title: 'sajitha',
+ body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
+ };
 
-  beforeEach(async () => {
-    const facadeServiceSpyValue = jasmine.createSpyObj('FacadeService', [
-      'getUpdatedPost$',
-      'getAddedPost$'
-    ]);
-    const formBuilderSpyValue = jasmine.createSpyObj('FormBuilder', ['group']);
-    await TestBed.configureTestingModule({
-      declarations: [AddPostComponent],
-      providers: [
-        {provide: FacadeService, useValue: facadeServiceSpyValue},
-        {provide: FormBuilder, useValue: formBuilderSpyValue}
-      ]
-    }).compileComponents();
+ beforeEach(async () => {
+ const facadeServiceSpyValue = jasmine.createSpyObj('FacadeService', [
+ 'getUpdatedPost$',
+ 'getAddedPost$'
+ ]);
+ const formBuilderSpyValue = jasmine.createSpyObj('FormBuilder', ['group']);
+ await TestBed.configureTestingModule({
+ declarations: [AddPostComponent],
+ providers: [
+ {provide: FacadeService, useValue: facadeServiceSpyValue},
+ {provide: FormBuilder, useValue: formBuilderSpyValue}
+ ]
+ }).compileComponents();
 
-    facadeServiceSpy = TestBed.inject(FacadeService) as jasmine.SpyObj<FacadeService>;
-    formBuilderSpy = TestBed.inject(FormBuilder) as jasmine.SpyObj<FormBuilder>;
-    facadeServiceSpy.getUpdatedPost$.and.returnValue(new BehaviorSubject(expectedUpdatedPosts));
-    facadeServiceSpy.getAddedPost$.and.returnValue(new BehaviorSubject(expectedUpdatedPosts));
+ facadeServiceSpy = TestBed.inject(FacadeService) as jasmine.SpyObj<FacadeService>;
+ formBuilderSpy = TestBed.inject(FormBuilder) as jasmine.SpyObj<FormBuilder>;
+ facadeServiceSpy.getUpdatedPost$.and.returnValue(new BehaviorSubject(expectedUpdatedPosts));
+ facadeServiceSpy.getAddedPost$.and.returnValue(new BehaviorSubject(expectedUpdatedPosts));
 
-    // postForm = formBuilderSpy.group(
-    //   {
-    //     userId: [expectedUpdatedPosts.userId, Validators.required],
-    //     title: [expectedUpdatedPosts.title, Validators.required],
-    //     body: [expectedUpdatedPosts.body, Validators.required]
-    //   });
-    //
-    // spyOnProperty(postForm, 'userId').and.returnValue(
-    //   'dummy stubbed name'
-    // );
+ // postForm = formBuilderSpy.group(
+ //   {
+ //     userId: [expectedUpdatedPosts.userId, Validators.required],
+ //     title: [expectedUpdatedPosts.title, Validators.required],
+ //     body: [expectedUpdatedPosts.body, Validators.required]
+ //   });
+ //
+ // spyOnProperty(postForm, 'userId').and.returnValue(
+ //   'dummy stubbed name'
+ // );
 
-  });
+ });
 
-  beforeEach(waitForAsync(() => {
-    fixture = TestBed.createComponent(AddPostComponent);
-    component = fixture.componentInstance;
+ beforeEach(waitForAsync(() => {
+ fixture = TestBed.createComponent(AddPostComponent);
+ component = fixture.componentInstance;
 
-    fixture.detectChanges();
-  }));
+ fixture.detectChanges();
+ }));
 
-  it('should create', waitForAsync(() => {
-    fixture.whenStable().then(() => {
-      component.postForm = formBuilderSpy.group(
-        {
-          userId: [expectedUpdatedPosts.userId, Validators.required],
-          title: [expectedUpdatedPosts.title, Validators.required],
-          body: [expectedUpdatedPosts.body, Validators.required]
-        });
+ it('should create', waitForAsync(() => {
+ fixture.whenStable().then(() => {
+ component.postForm = formBuilderSpy.group(
+ {
+ userId: [expectedUpdatedPosts.userId, Validators.required],
+ title: [expectedUpdatedPosts.title, Validators.required],
+ body: [expectedUpdatedPosts.body, Validators.required]
+ });
 
-      fixture.detectChanges();
-      expect(component).toBeTruthy();
-    });
-  }));
+ fixture.detectChanges();
+ expect(component).toBeTruthy();
+ });
+ }));
 
-  xit('should display updated posts', () => {
+ xit('should display updated posts', () => {
 
-    facadeServiceSpy.updatePost(expectedUpdatedPosts);
+ facadeServiceSpy.updatePost(expectedUpdatedPosts);
 
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      const updatedPostContainer = fixture.nativeElement.querySelector('.title');
-      expect(updatedPostContainer.textContent).toContain('sajitha');
-    });
+ fixture.whenStable().then(() => {
+ fixture.detectChanges();
+ const updatedPostContainer = fixture.nativeElement.querySelector('.title');
+ expect(updatedPostContainer.textContent).toContain('sajitha');
+ });
 
-  });
-});
+ });
+ }); */
 
 describe('AddPostComponent2', () => {
 
-  let component: PostsComponent;
-  let fixture: ComponentFixture<PostsComponent>;
+  let component: AddPostComponent;
+  let fixture: ComponentFixture<AddPostComponent>;
+
+  let formBuilderSpy: FormBuilderSpy;
+  let facadeServiceSpy: FacadeServiceSpy;
 
   const expectedUpdatedPost: Post = {
     userId: 1,
@@ -112,7 +113,7 @@ describe('AddPostComponent2', () => {
   }
 
   function createComponent() {
-    fixture = TestBed.createComponent(PostsComponent);
+    fixture = TestBed.createComponent(AddPostComponent);
     component = fixture.componentInstance;
 
     fixture.detectChanges();
@@ -123,15 +124,24 @@ describe('AddPostComponent2', () => {
   }
 
   class FormBuilderSpy {
-    testTheme: any = {
-      primaryColor: '#5a5a71',
-      accentColor: '#efeff1',
-      warnColor: '#f44336'
+    post = new Post(0, 0, '', '');
+    // postForm = new FormGroup({
+    //   userId: new FormControl(this.post.userId, [Validators.required]),
+    //   title: new FormControl(this.post.title, [Validators.required]),
+    //   body: new FormControl(this.post.body, [Validators.required])
+    // });
+
+    postForm = {
+      userId: [this.post.userId, Validators.required],
+      title: [this.post.title, Validators.required],
+      body: [this.post.body, Validators.required]
     };
 
-    /* emit cloned test theme */
-    getTheme$ = jasmine.createSpy('getTheme$').and.callFake(
-      () => asyncData(Object.assign({}, this.testTheme)));
+    group = jasmine.createSpy('group').and.callFake(
+      () => Object.assign({}, this.postForm));
+
+    get = jasmine.createSpy('get').and.callFake(
+      () => Object.assign({}, 'this.postForm'));
 
   }
 
@@ -150,7 +160,7 @@ describe('AddPostComponent2', () => {
   beforeEach(waitForAsync(() => {
     TestBed
       .configureTestingModule({
-
+        imports: [ReactiveFormsModule],
         providers: [
           {provide: FacadeService, useValue: {}},
           {provide: FormBuilder, useValue: {}}
@@ -159,13 +169,13 @@ describe('AddPostComponent2', () => {
 
       // Override component's own provider
       .overrideComponent(
-        PostsComponent,
+        AddPostComponent,
         {
           set:
             {
               providers: [
                 {provide: FacadeService, useClass: FacadeServiceSpy},
-                {provide: FormBuilder, useClass: FormBuilderSpy}
+                {provide: FormBuilder, useClass: FormBuilder}
               ]
             }
         }
@@ -175,26 +185,24 @@ describe('AddPostComponent2', () => {
 
   }));
 
-  let formBuilderSpy: FormBuilderSpy;
-  let facadeServiceSpy: FacadeServiceSpy;
-
   beforeEach(waitForAsync(() => {
     createComponent();
-    formBuilderSpy = fixture.debugElement.injector.get(FormBuilder) as any;
+    // formBuilderSpy = fixture.debugElement.injector.get(FormBuilder) as any;
     facadeServiceSpy = fixture.debugElement.injector.get(FacadeService) as any;
+
   }));
 
-  it('should have called `getAddedPost$`', waitForAsync(() => {
+  it('should have called `getAddedPost$`', () => {
     expect(facadeServiceSpy.getAddedPost$.calls.count()).toBe(1, 'getAddedPost$ called once');
-  }));
-
-  it('should have called `getUpdatedPost$`', waitForAsync(() => {
-    expect(facadeServiceSpy.getUpdatedPost$.calls.count()).toBe(1, 'getAddedPost$ called once');
-  }));
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
+
+  it('should have called `getUpdatedPost$`', () => {
+    expect(facadeServiceSpy.getUpdatedPost$.calls.count()).toBe(1, 'getAddedPost$ called once');
+  });
+
+  // it('should create', () => {
+  //   expect(component).toBeTruthy();
+  // });
 });
 
 

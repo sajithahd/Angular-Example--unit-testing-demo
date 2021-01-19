@@ -38,12 +38,6 @@ export class AddPostComponent implements OnInit {
     //   body: new FormControl(this.post.body, [Validators.required])
     // });
 
-    // FormBuilder based intialzing
-    this.postForm = formbuilder.group({
-      userId: [this.post.userId, Validators.required],
-      title: [this.post.title, Validators.required],
-      body: [this.post.body, Validators.required]
-    });
   }
 
   get userId(): AbstractControl | null {
@@ -59,6 +53,13 @@ export class AddPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // FormBuilder based intialzing
+    this.postForm = this.formbuilder.group({
+      userId: [this.post.userId, Validators.required],
+      title: [this.post.title, Validators.required],
+      body: [this.post.body, Validators.required]
+    });
+
     this.facadeService.getAddedPost$().subscribe(
       addedPost => {
         this.addNew = true;
