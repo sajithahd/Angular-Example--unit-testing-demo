@@ -81,17 +81,6 @@ describe('AddPostComponent', () => {
     expect(facadeServiceSpy.getUpdatedPost$.calls.count()).toBe(1, 'getAddedPost$ called once');
   });
 
-  xit('should display updated posts', () => {
-
-    facadeServiceSpy.updatePost(expectedUpdatedPosts);
-
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      const updatedPostContainer = fixture.nativeElement.querySelector('.title');
-      expect(updatedPostContainer.textContent).toContain('sajitha');
-    });
-
-  });
 });
 
 describe('AddPostComponent2', () => {
@@ -110,8 +99,8 @@ describe('AddPostComponent2', () => {
 
   const expectedAddedPost: Post = {
     userId: 1,
-    id: 1,
-    title: 'sajitha',
+    id: null,
+    title: 'sajithassdsdsd',
     body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
   };
 
@@ -161,6 +150,7 @@ describe('AddPostComponent2', () => {
       () => asyncData(Object.assign({}, expectedAddedPost as Post)));
 
     loadPosts = jasmine.createSpy('loadPosts');
+    addPost = jasmine.createSpy('addPost');
 
   }
 
@@ -205,6 +195,15 @@ describe('AddPostComponent2', () => {
 
   it('should have called `getUpdatedPost$`', () => {
     expect(facadeServiceSpy.getUpdatedPost$.calls.count()).toBe(1, 'getAddedPost$ called once');
+  });
+
+  it('should display updated posts', () => {
+
+    facadeServiceSpy.addPost(expectedAddedPost);
+
+    const updatedPostContainer = fixture.nativeElement.querySelector('.title');
+    expect(updatedPostContainer.textContent).toContain('sajitha');
+
   });
 
   it('should create', () => {
